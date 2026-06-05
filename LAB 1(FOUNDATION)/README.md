@@ -5,8 +5,6 @@
 ![Status](https://img.shields.io/badge/Status-Completed-brightgreen)
 ![Vulnerabilities](https://img.shields.io/badge/Vulnerabilities-63%20found-orange)
 
----
-
 ## 📋 Objective
 
 To identify, classify, and prioritise vulnerabilities on a target host using automated scanning tools — **not** to exploit them. This lab demonstrates how vulnerability scanners detect and categorise security weaknesses, and how to interpret findings in a real-world context.

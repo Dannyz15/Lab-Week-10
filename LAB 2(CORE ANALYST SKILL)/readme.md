@@ -1,7 +1,5 @@
 # Lab 2 — CVE, CVSS & CWE Correlation Lab (Manual Analysis)
 
----
-
 ## Objective
 
 Train students to **understand findings, not blindly trust scanners.**

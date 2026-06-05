@@ -52,7 +52,7 @@ Launched the scan and waited for full completion.
 | End Time | June 5 at 12:04 AM |
 | Elapsed | 22 minutes |
 | Scanner | Local Scanner |
-| Status | ✅ Completed |
+| Status | Completed |
 
 ### Step 4 — Result Analysis
 Total vulnerabilities detected: **63 unique findings** across the host.
@@ -78,8 +78,6 @@ Top 5 vulnerabilities selected based on CVSS score and severity rating.
 | 3 | Canonical Ubuntu Linux SEoL (8.04.x) | #201352 | 10.0 | Critical | 80 / tcp / www |
 | 4 | SSL Version 2 and 3 Protocol Detection | #20007 | 9.8 | Critical | Multiple ports |
 | 5 | VNC Server 'password' Password | #61708 | 10.0* | Critical | 5900 / tcp / vnc |
-
-> *\* CVSS v2.0 score shown — v3.0 not available for this plugin*
 
 ---
 
@@ -152,29 +150,6 @@ Nessus often detects vulnerabilities based on **version banners** or **configura
 
 ---
 
-## 📁 Repository Structure
-
-```
-lab1-vulnerability-assessment/
-├── README.md                          ← This file
-├── scan-results/
-│   └── metasploit_nessus_report.pdf   ← Exported Nessus scan report
-└── screenshots/
-    ├── Ping.png                       ← Network connectivity check
-    ├── Create_basic_scan.png          ← Scan configuration
-    ├── Host_result.png                ← Hosts overview
-    ├── Vulnerability_result.png       ← Full vulnerability list
-    ├── History_result.png             ← Scan history & summary
-    ├── emedation_result.png           ← Remediation recommendations
-    ├── Apache_Tomcat_SEoL.png         ← Finding #1
-    ├── Bind_Shell_Backdoor.png        ← Finding #2
-    ├── Canonical_Ubuntu_SEoL.png      ← Finding #3
-    ├── SSL_Version_2_and_3.png        ← Finding #4
-    └── VNC_Server_password.png        ← Finding #5
-```
-
----
-
 ## 🔗 References
 
 - [Nessus Plugin #171340 — Apache Tomcat SEoL](https://www.tenable.com/plugins/nessus/171340)
@@ -185,7 +160,3 @@ lab1-vulnerability-assessment/
 - [National Vulnerability Database (NVD)](https://nvd.nist.gov/)
 - [CVSS v3.0 Specification](https://www.first.org/cvss/v3.0/specification-document)
 - [Nessus Essentials — Tenable](https://www.tenable.com/products/nessus/nessus-essentials)
-
----
-
-*Prepared for IKB21403 Vulnerability Analysis — UniKL MIIT, March 2025 intake*

@@ -1,4 +1,4 @@
-# Lab 1 — Host-Based Vulnerability Assessment
+# Lab 1 - Host-Based Vulnerability Assessment
 
 ![Tool](https://img.shields.io/badge/Tool-Nessus%20Essentials-blue)
 ![Target](https://img.shields.io/badge/Target-Metasploitable2-red)
@@ -7,7 +7,7 @@
 
 ## 📋 Objective
 
-To identify, classify, and prioritise vulnerabilities on a target host using automated scanning tools — **not** to exploit them. This lab demonstrates how vulnerability scanners detect and categorise security weaknesses, and how to interpret findings in a real-world context.
+To identify, classify, and prioritise vulnerabilities on a target host using automated scanning tools - **not** to exploit them. This lab demonstrates how vulnerability scanners detect and categorise security weaknesses, and how to interpret findings in a real-world context.
 
 ---
 
@@ -27,21 +27,26 @@ To identify, classify, and prioritise vulnerabilities on a target host using aut
 
 ## 🔧 Methodology
 
-### Step 1 — Network Verification
+### Step 1 - Network Verification
 Confirmed connectivity between Kali Linux and Metasploitable2 before initiating the scan.
 
 ```bash
 ping 192.168.56.106
 ```
 
+![ping ip](Screenshots/Ping.png)
+
 Output confirmed the target was reachable with response times averaging ~2ms.
 
-### Step 2 — Scan Configuration
+### Step 2 - Scan Configuration
+- Selected scan template: **Basic Network Scan**
 - Created a new scan in Nessus named **"metasploit"**
 - Set target to `192.168.56.106`
-- Selected scan template: **Basic Network Scan**
 
-### Step 3 — Scan Execution
+
+![scan configuration](Screenshots/Create-basic-scan.png)
+
+### Step 3 - Scan Execution
 Launched the scan and waited for full completion.
 
 | Detail | Value |
@@ -52,8 +57,14 @@ Launched the scan and waited for full completion.
 | Scanner | Local Scanner |
 | Status | Completed |
 
-### Step 4 — Result Analysis
+![scan execution](Screenshots/History-result.png)
+
+### Step 4 - Result Analysis
 Total vulnerabilities detected: **63 unique findings** across the host.
+
+![result analysis](Screenshots/Host-result.png)
+
+Top 5 vulnerabilities selected based on CVSS score and severity rating.
 
 | Severity | Count |
 |---|---|
@@ -62,8 +73,6 @@ Total vulnerabilities detected: **63 unique findings** across the host.
 | 🟡 Medium | 24 |
 | 🟢 Low | 8 |
 | ℹ️ Info | 134 |
-
-Top 5 vulnerabilities selected based on CVSS score and severity rating.
 
 ---
 
@@ -81,10 +90,10 @@ Top 5 vulnerabilities selected based on CVSS score and severity rating.
 
 ## 📊 Vulnerability Analysis
 
-### 1. Apache Tomcat SEoL (<= 5.5.x) — Plugin #171340
+### 1. Apache Tomcat SEoL (<= 5.5.x) - Plugin #171340
 - **CVSS v3.0 Score:** 10.0 | **Severity:** Critical
 - **Affected Port:** 8180/tcp
-- **Installed Version:** Apache Tomcat 5.5 (End of Life: September 30, 2012 — over 13 years ago)
+- **Installed Version:** Apache Tomcat 5.5 (End of Life: September 30, 2012 - over 13 years ago)
 - **Description:** The installed version of Apache Tomcat is no longer maintained by its vendor. As a result, no new security patches will be released, leaving the system permanently exposed to newly discovered vulnerabilities.
 - **Impact:** Any future (or existing unpatched) vulnerabilities in this version will never receive official fixes, making the system a persistent attack target.
 - **Solution:** Upgrade to a currently supported version of Apache Tomcat.
@@ -95,7 +104,7 @@ Top 5 vulnerabilities selected based on CVSS score and severity rating.
 ### 2. Bind Shell Backdoor Detection — Plugin #51988
 - **CVSS v3.0 Score:** 9.8 | **Severity:** Critical
 - **Affected Port:** 1524/tcp (wild_shell)
-- **Description:** A shell is listening on port 1524 with no authentication required. Nessus confirmed exploitation by executing the `id` command, which returned `uid=0(root) gid=0(root) groups=0(root)` — confirming full root access.
+- **Description:** A shell is listening on port 1524 with no authentication required. Nessus confirmed exploitation by executing the `id` command, which returned `uid=0(root) gid=0(root) groups=0(root)` - confirming full root access.
 - **Nessus Output:**
   ```
   root@metasploitable:/# uid=0(root) gid=0(root) groups=0(root)
@@ -106,14 +115,14 @@ Top 5 vulnerabilities selected based on CVSS score and severity rating.
 
 ---
 
-### 3. Canonical Ubuntu Linux SEoL (8.04.x) — Plugin #201352
+### 3. Canonical Ubuntu Linux SEoL (8.04.x) - Plugin #201352
 - **CVSS v3.0 Score:** 10.0 | **Severity:** Critical
 - **Affected Port:** 80/tcp
-- **OS Detected:** Ubuntu Linux 8.04 (End of Life: May 9, 2013 — over 13 years ago)
+- **OS Detected:** Ubuntu Linux 8.04 (End of Life: May 9, 2013 - over 13 years ago)
 - **Description:** The underlying operating system is Ubuntu 8.04 (Hardy Heron), which has been unsupported since 2013. No security patches or updates are available from Canonical for this OS version.
 - **Impact:** All kernel-level, OS-level, and package-level vulnerabilities discovered since 2013 remain unpatched. The OS is the foundation of all running services, making this a systemic risk.
 - **Solution:** Upgrade to a currently supported Ubuntu LTS release (22.04 or 24.04).
-- **Risk Justification:** An unsupported OS affects every service running on the machine — any vulnerability in the kernel or core packages cannot be remediated through patching.
+- **Risk Justification:** An unsupported OS affects every service running on the machine - any vulnerability in the kernel or core packages cannot be remediated through patching.
 
 ---
 
@@ -127,12 +136,12 @@ Top 5 vulnerabilities selected based on CVSS score and severity rating.
 
 ---
 
-### 5. VNC Server 'password' Password — Plugin #61708
+### 5. VNC Server 'password' Password - Plugin #61708
 - **CVSS v2.0 Score:** 10.0 | **Severity:** Critical
 - **Affected Port:** 5900/tcp (VNC)
 - **Description:** The VNC server on the remote host uses the weak, default password `"password"`. Nessus successfully authenticated to the VNC service using this credential, confirming the finding.
 - **Nessus Output:** `Nessus logged in using a password of "password".`
-- **Impact:** Any attacker with network access to port 5900 can gain full graphical desktop control of the system without any specialised tools — just a VNC client and the known default password.
+- **Impact:** Any attacker with network access to port 5900 can gain full graphical desktop control of the system without any specialised tools - just a VNC client and the known default password.
 - **Solution:** Immediately change the VNC password to a strong, unique credential. Consider disabling VNC entirely if remote desktop access is not required.
 - **Risk Justification:** Default credentials are among the most commonly exploited weaknesses in real-world attacks. This finding was confirmed exploited by Nessus itself during the scan.
 
@@ -141,10 +150,10 @@ Top 5 vulnerabilities selected based on CVSS score and severity rating.
 ## 💡 Key Learnings
 
 ### Finding ≠ Real Risk
-Not every vulnerability flagged by a scanner is immediately exploitable in all environments. Findings #1 and #3 (both SEoL detections) are classified Critical based on the *absence of patching capability* rather than a specific active exploit. In a network with strict firewall rules or no external exposure, the immediate risk may be lower — but the long-term risk remains unaddressed.
+Not every vulnerability flagged by a scanner is immediately exploitable in all environments. Findings #1 and #3 (both SEoL detections) are classified Critical based on the *absence of patching capability* rather than a specific active exploit. In a network with strict firewall rules or no external exposure, the immediate risk may be lower - but the long-term risk remains unaddressed.
 
 ### Why False Positives Exist
-Nessus often detects vulnerabilities based on **version banners** or **configuration checks** rather than confirmed exploitation. For example, SEoL findings (#1 and #3) do not mean an attack is actively occurring — they indicate that the software *can no longer be made safe* through vendor patches. The Bind Shell Backdoor (#2) and VNC Password (#5), however, were **actively confirmed** by Nessus, making them verified true positives with zero ambiguity.
+Nessus often detects vulnerabilities based on **version banners** or **configuration checks** rather than confirmed exploitation. For example, SEoL findings (#1 and #3) do not mean an attack is actively occurring - they indicate that the software *can no longer be made safe* through vendor patches. The Bind Shell Backdoor (#2) and VNC Password (#5), however, were **actively confirmed** by Nessus, making them verified true positives with zero ambiguity.
 
 ---
 

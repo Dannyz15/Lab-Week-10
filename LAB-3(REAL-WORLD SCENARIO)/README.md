@@ -163,11 +163,11 @@ metasploitable login:
 
 | Question | Answer |
 |---|---|
-| Is the port open and reachable from Kali? | ✅ YES — port 23 open |
-| Does a service respond immediately? | ✅ YES — Linux telnetd |
-| Is there any network-level restriction? | ❌ NO — connects instantly |
-| Are credentials transmitted encrypted? | ❌ NO — plaintext only |
-| Are default credentials accepted? | ✅ YES — `msfadmin:msfadmin` |
+| Is the port open and reachable from Kali? | ✅ YES - port 23 open |
+| Does a service respond immediately? | ✅ YES - Linux telnetd |
+| Is there any network-level restriction? | ❌ NO - connects instantly |
+| Are credentials transmitted encrypted? | ❌ NO - plaintext only |
+| Are default credentials accepted? | ✅ YES - `msfadmin:msfadmin` |
 
 ---
 
@@ -238,13 +238,13 @@ curl -I ftp://192.168.56.106
 | CVE | CVE-2011-2523 |
 | CVSS Score | 10.0 Critical |
 | Affected Version | vsftpd 2.3.4 exactly |
-| Vulnerability | Backdoor — appending `:)` to any username opens root shell on port 6200 |
+| Vulnerability | Backdoor - appending `:)` to any username opens root shell on port 6200 |
 
 **Version comparison:**
 
 | Source | Reported Version | Match? |
 |---|---|---|
-| Scanner report | vsftpd 2.3.4 | — |
+| Scanner report | vsftpd 2.3.4 | - |
 | `nc -nv` banner grab | vsftpd 2.3.4 | ✅ Confirmed |
 | `curl -I` banner grab | vsftpd 2.3.4 | ✅ Confirmed |
 | NVD CVE-2011-2523 | vsftpd 2.3.4 | ✅ Confirmed |
@@ -259,7 +259,7 @@ curl -I ftp://192.168.56.106
 
 ### Justify Decision (Technical Reasoning)
 
-Two independent banner grabs (`nc` and `curl`) confirm the service is running **vsftpd 2.3.4** — exactly matching the scanner report. NVD confirms **CVE-2011-2523 (CVSS 10.0 Critical)** for this exact version. The vulnerability is a deliberately planted backdoor:
+Two independent banner grabs (`nc` and `curl`) confirm the service is running **vsftpd 2.3.4** and exactly matching the scanner report. NVD confirms **CVE-2011-2523 (CVSS 10.0 Critical)** for this exact version. The vulnerability is a deliberately planted backdoor:
 
 ```bash
 # Step 1 - Trigger the backdoor
@@ -284,7 +284,7 @@ No authentication is required. The backdoor is embedded in the binary itself - n
 
 | Finding | What Scanner Said | What Manual Validation Found | Verdict |
 |---|---|---|---|
-| SSL Weak Cipher | Weak ciphers on port 443 | Port 443 filtered + connection refused — no service running | ❌ False Positive |
+| SSL Weak Cipher | Weak ciphers on port 443 | Port 443 filtered + connection refused - no service running | ❌ False Positive |
 | Open Port No Auth | Telnet open, no auth | Port 23 open, plaintext, default creds confirmed | ✅ True Positive |
 | Outdated Service | vsftpd 2.3.4 detected | Banner grab confirms version + CVE-2011-2523 on NVD | ✅ True Positive |
 

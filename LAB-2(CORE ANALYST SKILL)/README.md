@@ -1,4 +1,4 @@
-# Lab 2 — CVE, CVSS & CWE Correlation Lab (Manual Analysis)
+# Lab 2 - CVE, CVSS & CWE Correlation Lab (Manual Analysis)
 
 ## Objective
 
@@ -9,7 +9,7 @@ Manually correlate 3 vulnerabilities from Lab 1 with CVE, CVSS, and CWE data —
 
 ---
 
-## Step 1 — Choose 3 Findings from Lab 1
+## Step 1 - Choose 3 Findings from Lab 1
 
 Three findings selected from the Metasploitable2 scan, each from a **different category**:
 
@@ -21,7 +21,7 @@ Three findings selected from the Metasploitable2 scan, each from a **different c
 
 ---
 
-## Finding 1 — Apache Tomcat SEoL (<= 5.5.x)
+## Finding 1 - Apache Tomcat SEoL (<= 5.5.x)
 
 **Category:** Web / Application
 **CVE:** CVE-2007-0450
@@ -30,7 +30,7 @@ Three findings selected from the Metasploitable2 scan, each from a **different c
 
 ---
 
-### Step 2 — Open CVE Page on CVE.org, then Cross-Check on NVD
+### Step 2 - Open CVE Page on CVE.org, then Cross-Check on NVD
 
 - **CVE.org:** https://www.cve.org/CVERecord?id=CVE-2007-0450
 - **NVD:** https://nvd.nist.gov/vuln/detail/CVE-2007-0450
@@ -39,7 +39,7 @@ Both sources confirm the vulnerability exists in Apache Tomcat versions **5.5.0 
 
 ---
 
-### Step 3 — CVSS Vector String Breakdown
+### Step 3 - CVSS Vector String Breakdown
 
 ```
 CVSS v2 Score : 5.0 (Medium)
@@ -58,7 +58,7 @@ Vector String : AV:N/AC:L/Au:N/C:P/I:N/A:N
 
 ---
 
-### Step 4 — CWE Mapping
+### Step 4 - CWE Mapping
 
 | Field | Value |
 |---|---|
@@ -69,7 +69,7 @@ Vector String : AV:N/AC:L/Au:N/C:P/I:N/A:N
 
 ---
 
-### Step 5 — Compare Against Lab Environment
+### Step 5 - Compare Against Lab Environment
 
 | Question | Answer | Notes |
 |---|---|---|
@@ -79,15 +79,15 @@ Vector String : AV:N/AC:L/Au:N/C:P/I:N/A:N
 
 ---
 
-### Step 6 — Conclusion
+### Step 6 - Conclusion
 
 > ✅ **Verdict: LIKELY EXPLOITABLE**
 
-Apache Tomcat 5.5.x is running on **port 8180** and is reachable from Kali Linux. CVE-2007-0450 allows an attacker to craft a URL with `../` path traversal sequences to read sensitive files outside the web root — no authentication required. Since the software is **SEoL (End of Life)**, this vulnerability will **never be patched** on this system. Although the CVSS score is 5.0 Medium (partial confidentiality impact only), in a real environment file disclosure can lead to further compromise — for example, reading configuration files that contain credentials.
+Apache Tomcat 5.5.x is running on **port 8180** and is reachable from Kali Linux. CVE-2007-0450 allows an attacker to craft a URL with `../` path traversal sequences to read sensitive files outside the web root with no authentication required. Since the software is **SEoL (End of Life)**, this vulnerability will **never be patched** on this system. Although the CVSS score is 5.0 Medium (partial confidentiality impact only), in a real environment file disclosure can lead to further compromise. For example, reading configuration files that contain credentials.
 
 ---
 
-## Finding 2 — VNC Server 'password' Password
+## Finding 2 - VNC Server 'password' Password
 
 **Category:** Service / Authentication
 **CVE:** CVE-1999-0506
@@ -96,16 +96,16 @@ Apache Tomcat 5.5.x is running on **port 8180** and is reachable from Kali Linux
 
 ---
 
-### Step 2 — Open CVE Page on CVE.org, then Cross-Check on NVD
+### Step 2 - Open CVE Page on CVE.org, then Cross-Check on NVD
 
 - **CVE.org:** https://www.cve.org/CVERecord?id=CVE-1999-0506
 - **NVD:** https://nvd.nist.gov/vuln/detail/CVE-1999-0506
 
-Both sources confirm this as a **weak authentication** issue — the service uses a trivially guessable credential.
+Both sources confirm this as a **weak authentication** issue, the service uses a trivially guessable credential.
 
 ---
 
-### Step 3 — CVSS Vector String Breakdown
+### Step 3 - CVSS Vector String Breakdown
 
 ```
 CVSS v2 Score : 10.0 (Critical)
@@ -124,7 +124,7 @@ Vector String : AV:N/AC:L/Au:N/C:C/I:C/A:C
 
 ---
 
-### Step 4 — CWE Mapping
+### Step 4 - CWE Mapping
 
 | Field | Value |
 |---|---|
@@ -135,7 +135,7 @@ Vector String : AV:N/AC:L/Au:N/C:C/I:C/A:C
 
 ---
 
-### Step 5 — Compare Against Lab Environment
+### Step 5 - Compare Against Lab Environment
 
 | Question | Answer | Notes |
 |---|---|---|
@@ -145,15 +145,15 @@ Vector String : AV:N/AC:L/Au:N/C:C/I:C/A:C
 
 ---
 
-### Step 6 — Conclusion
+### Step 6 - Conclusion
 
-> 🔴 **Verdict: LIKELY EXPLOITABLE — Highest Immediate Priority**
+> 🔴 **Verdict: LIKELY EXPLOITABLE - Highest Immediate Priority**
 
 VNC is running on **port 5900** and directly reachable from Kali Linux. The password is set to `password` — trivially guessable. An attacker needs only a VNC client (e.g., `vncviewer <target-ip>`) and this credential to gain **full graphical desktop control** of the target — no exploit code required. This is the most immediately dangerous finding in the lab environment. While other vulnerabilities have complex exploit chains, this one requires **zero skill** to execute. The CVSS score of 10.0 Critical accurately reflects the real-world risk in this environment.
 
 ---
 
-## Finding 3 — Canonical Ubuntu Linux SEoL (8.04.x)
+## Finding 3 - Canonical Ubuntu Linux SEoL (8.04.x)
 
 **Category:** OS / Platform
 **CVE:** CVE-2009-1185
@@ -162,16 +162,16 @@ VNC is running on **port 5900** and directly reachable from Kali Linux. The pass
 
 ---
 
-### Step 2 — Open CVE Page on CVE.org, then Cross-Check on NVD
+### Step 2 - Open CVE Page on CVE.org, then Cross-Check on NVD
 
 - **CVE.org:** https://www.cve.org/CVERecord?id=CVE-2009-1185
 - **NVD:** https://nvd.nist.gov/vuln/detail/CVE-2009-1185
 
-Both sources confirm the flaw in **udev** Netlink message handling on Linux kernel 2.6.24 — the exact version running on Metasploitable2.
+Both sources confirm the flaw in **udev** Netlink message handling on Linux kernel 2.6.24, the exact version running on Metasploitable2.
 
 ---
 
-### Step 3 — CVSS Vector String Breakdown
+### Step 3 - CVSS Vector String Breakdown
 
 ```
 CVSS v2 Score : 7.2 (High)
@@ -190,7 +190,7 @@ Vector String : AV:L/AC:L/Au:N/C:C/I:C/A:C
 
 ---
 
-### Step 4 — CWE Mapping
+### Step 4 - CWE Mapping
 
 | Field | Value |
 |---|---|
@@ -201,7 +201,7 @@ Vector String : AV:L/AC:L/Au:N/C:C/I:C/A:C
 
 ---
 
-### Step 5 — Compare Against Lab Environment
+### Step 5 - Compare Against Lab Environment
 
 | Question | Answer | Notes |
 |---|---|---|
@@ -211,19 +211,19 @@ Vector String : AV:L/AC:L/Au:N/C:C/I:C/A:C
 
 ---
 
-### Step 6 — Conclusion
+### Step 6 - Conclusion
 
 > 🟠 **Verdict: LIKELY EXPLOITABLE (Second-Stage / Post-Foothold)**
 
-Ubuntu 8.04 running kernel 2.6.24 is directly affected by CVE-2009-1185. The attack vector is **Local** — this exploit **cannot** be triggered directly from Kali. The attacker must first gain a shell on the target through another vulnerability (e.g., the VNC finding above). Once a low-privilege shell is obtained, this udev privilege escalation can be used to gain **full root access**. Since the OS is SEoL, this will never be patched.
+Ubuntu 8.04 running kernel 2.6.24 is directly affected by CVE-2009-1185. The attack vector is **Local**, this exploit **cannot** be triggered directly from Kali. The attacker must first gain a shell on the target through another vulnerability (e.g., the VNC finding above). Once a low-privilege shell is obtained, this udev privilege escalation can be used to gain **full root access**. Since the OS is SEoL, this will never be patched.
 
-> ⚠️ **Analyst Observation:** The CVSS score is 7.2 (High), yet this is a **second-stage exploit** — it requires a prior foothold. This demonstrates that CVSS scores must always be interpreted alongside the **Attack Vector** and **environmental context**, not taken at face value.
+> ⚠️ **Analyst Observation:** The CVSS score is 7.2 (High), yet this is a **second-stage exploit**. It requires a prior foothold. This demonstrates that CVSS scores must always be interpreted alongside the **Attack Vector** and **environmental context**, not taken at face value.
 
 ---
 
-## Key Learning — CVSS ≠ Actual Business Risk
+## Key Learning - CVSS ≠ Actual Business Risk
 
-> *"CVSS score reflects abstract, generalised conditions. A real analyst must evaluate context — environment, exposure, and exploitability — not just the number."*
+> *"CVSS score reflects abstract, generalised conditions. A real analyst must evaluate context environment, exposure, and exploitability and not just the number."*
 
 | Finding | CVSS | Reality in This Environment |
 |---|---|---|
@@ -231,7 +231,7 @@ Ubuntu 8.04 running kernel 2.6.24 is directly affected by CVE-2009-1185. The att
 | VNC 'password' (CVE-1999-0506) | 10.0 Critical | Score is accurate — instantly exploitable, zero skill required |
 | Ubuntu SEoL (CVE-2009-1185) | 7.2 High | Requires local access first — lower immediate threat despite high score |
 
-A good vulnerability analyst always **validates findings contextually** — not blindly by score.
+A good vulnerability analyst always **validates findings contextually** - not blindly by score.
 **Blind reporting = bad analyst.**
 
 ---

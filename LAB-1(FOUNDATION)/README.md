@@ -91,6 +91,9 @@ Top 5 vulnerabilities selected based on CVSS score and severity rating.
 ## 📊 Vulnerability Analysis
 
 ### 1. Apache Tomcat SEoL (<= 5.5.x) - Plugin #171340
+
+![apache tomcat](Screenshots/Apache-Tomcat-SEoL.png)
+
 - **CVSS v3.0 Score:** 10.0 | **Severity:** Critical
 - **Affected Port:** 8180/tcp
 - **Installed Version:** Apache Tomcat 5.5 (End of Life: September 30, 2012 - over 13 years ago)
@@ -102,6 +105,9 @@ Top 5 vulnerabilities selected based on CVSS score and severity rating.
 ---
 
 ### 2. Bind Shell Backdoor Detection — Plugin #51988
+
+![bind shell](Screenshots/Bind-Shell-Backdoor-Detection.png)
+
 - **CVSS v3.0 Score:** 9.8 | **Severity:** Critical
 - **Affected Port:** 1524/tcp (wild_shell)
 - **Description:** A shell is listening on port 1524 with no authentication required. Nessus confirmed exploitation by executing the `id` command, which returned `uid=0(root) gid=0(root) groups=0(root)` - confirming full root access.
@@ -116,6 +122,9 @@ Top 5 vulnerabilities selected based on CVSS score and severity rating.
 ---
 
 ### 3. Canonical Ubuntu Linux SEoL (8.04.x) - Plugin #201352
+
+![canonical ubuntu](Screenshots/Canonical-Ubuntu-Linux-SEoL-(8.04.x).png)
+
 - **CVSS v3.0 Score:** 10.0 | **Severity:** Critical
 - **Affected Port:** 80/tcp
 - **OS Detected:** Ubuntu Linux 8.04 (End of Life: May 9, 2013 - over 13 years ago)
@@ -127,6 +136,9 @@ Top 5 vulnerabilities selected based on CVSS score and severity rating.
 ---
 
 ### 4. SSL Version 2 and 3 Protocol Detection — Plugin #20007
+
+![ssl version 2 and 3](Screenshots/SSL-Version-2-and-3-Protocol-Detection.png)
+
 - **CVSS v3.0 Score:** 9.8 | **Severity:** Critical
 - **Affected Ports:** Multiple (SSL/TLS services)
 - **Description:** The remote service accepts connections using SSL 2.0 and/or SSL 3.0, both of which are cryptographically broken protocols. These versions are vulnerable to insecure padding (CBC ciphers), insecure session renegotiation, and protocol downgrade attacks (e.g., POODLE).
@@ -137,6 +149,9 @@ Top 5 vulnerabilities selected based on CVSS score and severity rating.
 ---
 
 ### 5. VNC Server 'password' Password - Plugin #61708
+
+![vnc server](Screenshots/VNC-Server-'password'-Password.png)
+
 - **CVSS v2.0 Score:** 10.0 | **Severity:** Critical
 - **Affected Port:** 5900/tcp (VNC)
 - **Description:** The VNC server on the remote host uses the weak, default password `"password"`. Nessus successfully authenticated to the VNC service using this credential, confirming the finding.

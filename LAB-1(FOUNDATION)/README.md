@@ -7,7 +7,7 @@
 
 ## 📋 Objective
 
-To identify, classify, and prioritise vulnerabilities on a target host using automated scanning tools - **not** to exploit them. This lab demonstrates how vulnerability scanners detect and categorise security weaknesses, and how to interpret findings in a real-world context.
+To identify, classify, and prioritise vulnerabilities on a target host using automated scanning tools and **not** to exploit them. This lab demonstrates how vulnerability scanners detect and categorise security weaknesses, and how to interpret findings in a real-world context.
 
 ---
 
@@ -104,7 +104,7 @@ Top 5 vulnerabilities selected based on CVSS score and severity rating.
 
 ---
 
-### 2. Bind Shell Backdoor Detection — Plugin #51988
+### 2. Bind Shell Backdoor Detection - Plugin #51988
 
 ![bind shell](Screenshots/Bind-Shell-Backdoor-Detection.png)
 
@@ -135,7 +135,7 @@ Top 5 vulnerabilities selected based on CVSS score and severity rating.
 
 ---
 
-### 4. SSL Version 2 and 3 Protocol Detection — Plugin #20007
+### 4. SSL Version 2 and 3 Protocol Detection - Plugin #20007
 
 ![ssl version 2 and 3](Screenshots/SSL-Version-2-and-3-Protocol-Detection.png)
 

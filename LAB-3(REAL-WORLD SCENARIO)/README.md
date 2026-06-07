@@ -1,4 +1,4 @@
-# Lab 3 — False Positive Validation Exercise (Real-World Scenario)
+# Lab 3 - False Positive Validation Exercise (Real-World Scenario)
 
 ## Objective
 
@@ -7,8 +7,8 @@ Manually validate each scanner finding and classify it as:
 
 | Classification | Meaning |
 |---|---|
-| ✅ True Positive (TP) | Scanner is correct — vulnerability is real and confirmed |
-| ❌ False Positive (FP) | Scanner is wrong — vulnerability does not actually exist |
+| ✅ True Positive (TP) | Scanner is correct - vulnerability is real and confirmed |
+| ❌ False Positive (FP) | Scanner is wrong - vulnerability does not actually exist |
 | ⚠️ Accepted Risk (AR) | Vulnerability is real but organisation chooses not to remediate |
 
 > 💡 **Key Learning: This is EXACTLY what real VA analysts do. Blind reporting = bad analyst.**
@@ -25,20 +25,22 @@ Manually validate each scanner finding and classify it as:
 
 ---
 
-## Finding 1 — SSL Weak Cipher
+## Finding 1 - SSL Weak Cipher
 
 **Scanner Report:** SSL service is offering weak cipher suites (SSLv2 / RC4)
 **Target Port:** 443 (HTTPS)
 
 ---
 
-### Step 1 — Validate Manually
+### Step 1 - Validate Manually
 
-**Command 1 — Nmap SSL cipher enumeration:**
+**Command 1 - Nmap SSL cipher enumeration:**
 
 ```bash
 nmap --script ssl-enum-ciphers -p 443 192.168.56.106
 ```
+
+![nmap ssl](Screenshots/nmap--script-ssl-enum-ciphers-p-443-192.168.56.106.png)
 
 **Actual Output:**
 
@@ -49,11 +51,13 @@ PORT      STATE    SERVICE
 Nmap done: 1 IP address (1 host up) scanned in 0.89 seconds
 ```
 
-**Command 2 — Nmap service version scan:**
+**Command 2 - Nmap service version scan:**
 
 ```bash
 nmap -sV -p 443 192.168.56.106
 ```
+
+![nmap sv](Screenshots/nmap-sV-p-443-192.168.56.106.png)
 
 **Actual Output:**
 
@@ -65,11 +69,13 @@ Service detection performed.
 Nmap done: 1 IP address (1 host up) scanned in 1.32 seconds
 ```
 
-**Command 3 — Netcat direct connection:**
+**Command 3 - Netcat direct connection:**
 
 ```bash
 nc -nv 192.168.56.106 443
 ```
+
+![nc nv](Screenshots/nc-nv-192.168.56.106-443.png)
 
 **Actual Output:**
 
@@ -79,23 +85,23 @@ nc -nv 192.168.56.106 443
 
 ---
 
-### Step 2 — Confirm Weak Protocols/Ciphers Are Truly Offered
+### Step 2 - Confirm Weak Protocols/Ciphers Are Truly Offered
 
 | Tool | Result | Conclusion |
 |---|---|---|
-| `nmap --script ssl-enum-ciphers` | `443/tcp filtered` — no cipher data returned | SSL service not reachable |
-| `nmap -sV` | `443/tcp filtered` — no version detected | No service responding |
+| `nmap --script ssl-enum-ciphers` | `443/tcp filtered` - no cipher data returned | SSL service not reachable |
+| `nmap -sV` | `443/tcp filtered` - no version detected | No service responding |
 | `nc -nv` | `Connection refused` | No service listening on port 443 |
 
 > 🔍 **Key Difference:**
 > - `filtered` = firewall blocking the port, Nmap cannot determine state
-> - `Connection refused` = **no service is listening at all** — most definitive result
+> - `Connection refused` = **no service is listening at all** - most definitive result
 
-All three tools agree — **port 443 has no active SSL/HTTPS service**.
+All three tools agree - **port 443 has no active SSL/HTTPS service**.
 
 ---
 
-### Step 3 — Decide: TP / FP / Accepted Risk
+### Step 3 - Decide: TP / FP / Accepted Risk
 
 > ❌ **FALSE POSITIVE (FP)**
 
@@ -107,7 +113,7 @@ The scanner reported SSL Weak Cipher on port 443. Manual validation using three 
 
 - `nmap --script ssl-enum-ciphers` → port **filtered**, no cipher suite data returned
 - `nmap -sV` → port **filtered**, no HTTPS version detected
-- `nc -nv 192.168.56.106 443` → **Connection refused** — no service listening
+- `nc -nv 192.168.56.106 443` → **Connection refused** - no service listening
 
 The port is completely unreachable. No SSL handshake could be established, therefore no weak cipher could actually be exploited. The scanner likely flagged this based on the Apache version installed on the OS rather than confirming the SSL service was actively running and reachable.
 
@@ -115,16 +121,16 @@ The port is completely unreachable. No SSL handshake could be established, there
 
 ---
 
-## Finding 2 — Open Port with No Authentication
+## Finding 2 - Open Port with No Authentication
 
 **Scanner Report:** Port 23 (Telnet) is open and accepting connections without authentication
 **Target Port:** 23 (Telnet)
 
 ---
 
-### Step 1 — Validate Manually
+### Step 1 - Validate Manually
 
-**Command 1 — Nmap service version scan:**
+**Command 1 - Nmap service version scan:**
 
 ```bash
 nmap -sV -p 23 192.168.56.106
@@ -137,7 +143,7 @@ PORT   STATE  SERVICE  VERSION
 23/tcp open   telnet   Linux telnetd
 ```
 
-**Command 2 — Netcat basic access test:**
+**Command 2 - Netcat basic access test:**
 
 ```bash
 nc -nv 192.168.56.106 23
@@ -153,7 +159,7 @@ metasploitable login:
 
 ---
 
-### Step 2 — Check If Login Is Required
+### Step 2 - Check If Login Is Required
 
 | Question | Answer |
 |---|---|
@@ -165,7 +171,7 @@ metasploitable login:
 
 ---
 
-### Step 3 — Decide: TP / FP / Accepted Risk
+### Step 3 - Decide: TP / FP / Accepted Risk
 
 > ✅ **TRUE POSITIVE (TP)**
 
@@ -187,16 +193,16 @@ Additionally, Metasploitable2 uses default credentials (`msfadmin:msfadmin`) wit
 
 ---
 
-## Finding 3 — Outdated Service
+## Finding 3 - Outdated Service
 
-**Scanner Report:** vsftpd 2.3.4 detected — outdated version with a known backdoor
+**Scanner Report:** vsftpd 2.3.4 detected - outdated version with a known backdoor
 **Target Port:** 21 (FTP)
 
 ---
 
-### Step 1 — Validate Manually
+### Step 1 - Validate Manually
 
-**Command 1 — Banner grab with Netcat:**
+**Command 1 - Banner grab with Netcat:**
 
 ```bash
 nc -nv 192.168.56.106 21
@@ -209,7 +215,7 @@ nc -nv 192.168.56.106 21
 220 (vsFTPd 2.3.4)
 ```
 
-**Command 2 — Banner grab with cURL:**
+**Command 2 - Banner grab with cURL:**
 
 ```bash
 curl -I ftp://192.168.56.106
@@ -223,7 +229,7 @@ curl -I ftp://192.168.56.106
 
 ---
 
-### Step 2 — Compare Version to Vendor Advisory / NVD
+### Step 2 - Compare Version to Vendor Advisory / NVD
 
 **NVD Search:** https://nvd.nist.gov/vuln/search?query=vsftpd+2.3.4
 
@@ -245,7 +251,7 @@ curl -I ftp://192.168.56.106
 
 ---
 
-### Step 3 — Decide: TP / FP / Accepted Risk
+### Step 3 - Decide: TP / FP / Accepted Risk
 
 > ✅ **TRUE POSITIVE (TP)**
 
@@ -256,23 +262,23 @@ curl -I ftp://192.168.56.106
 Two independent banner grabs (`nc` and `curl`) confirm the service is running **vsftpd 2.3.4** — exactly matching the scanner report. NVD confirms **CVE-2011-2523 (CVSS 10.0 Critical)** for this exact version. The vulnerability is a deliberately planted backdoor:
 
 ```bash
-# Step 1 — Trigger the backdoor
+# Step 1 - Trigger the backdoor
 telnet 192.168.56.106 21
 USER backdoor:)
 PASS anything
 
-# Step 2 — Connect to the opened root shell
+# Step 2 - Connect to the opened root shell
 nc 192.168.56.106 6200
-# Result: instant root shell — full system compromise
+# Result: instant root shell - full system compromise
 ```
 
-No authentication is required. The backdoor is embedded in the binary itself — not a configuration issue. Since Metasploitable2 is SEoL, this will never be patched. The scanner finding is **accurate and manually confirmed**.
+No authentication is required. The backdoor is embedded in the binary itself - not a configuration issue. Since Metasploitable2 is SEoL, this will never be patched. The scanner finding is **accurate and manually confirmed**.
 
 **Recommended Fix:** Immediately remove vsftpd 2.3.4. Replace with vsftpd 3.0.x or later. Disable FTP entirely if not required.
 
 ---
 
-## Key Learning — This is EXACTLY What Real VA Analysts Do
+## Key Learning - This is EXACTLY What Real VA Analysts Do
 
 > *"Blind reporting = bad analyst."*
 

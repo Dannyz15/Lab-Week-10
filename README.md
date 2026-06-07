@@ -1,6 +1,6 @@
-# IKB21403 — Vulnerability Analysis | Lab Week 10
+# IKB21403 - Vulnerability Analysis | Lab Week 10
 
-**Course:** IKB21403 — Vulnerability Analysis
+**Course:** IKB21403 - Vulnerability Analysis
 **Environment:** Kali Linux → Metasploitable2 (`192.168.56.106`)
 **Scanner:** Tenable Nessus Essentials Plus
 
